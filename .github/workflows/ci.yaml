@@ -20,7 +20,9 @@ jobs:
         run: npm run lint
 
       - name: Bundle
-        run: npm run build
+        run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
+          npm run build
 
       - name: Add dist bundle
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'

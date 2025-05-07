@@ -4,7 +4,7 @@
   "description": "Export K6 test summary as a HTML report",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/benc-uk/k6-reporter.git"
+    "url": "git+https://github.com/jlarminay/k6-reporter.git"
   },
   "keywords": [
     "k6",
@@ -16,9 +16,8 @@
     "lint": "eslint src && prettier --check src",
     "lint-fix": "eslint src --fix && prettier --write src"
   },
-  "author": "Ben Coleman",
+  "author": "Josh Larminay",
   "license": "MIT",
-  "homepage": "https://github.com/benc-uk/k6-reporter",
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "eslint": "^7.22.0",

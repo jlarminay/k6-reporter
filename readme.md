@@ -1,6 +1,6 @@
 # K6 HTML Report Exporter v2
 
-### 🔥 Note.
+### 🔥 Note
 
 > This a complete rewrite/overhaul of the existing report converter, now written in JavaScript to be integrated into the test. This is a more elegant method than the offline conversation process. The previous code has been moved to the 'archive' folder.
 
