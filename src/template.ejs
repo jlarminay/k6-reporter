@@ -3,11 +3,8 @@
   <head> 
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" crossorigin="anonymous">
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" crossorigin="anonymous">
-
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/jlarminay/k6-reporter/main/assets/icon.png" type="image/png">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>K6 Load Test: <%= title %></title>
     <style>
@@ -179,13 +176,13 @@
               <tr>
                 <th></th>
                 <th>Count</th>
-                <th>Rate</th>
                 <th>Average</th>
                 <th>Maximum</th>
                 <th>Median</th> 
                 <th>Minimum</th>
                 <th>90th Percentile</th>
                 <th>95th Percentile</th>
+                <th>99th Percentile</th>
               </tr>
             </thead>
             
@@ -207,13 +204,7 @@
                 <td><b><%= metricName %></b></td>
 
                 <% if(metric.values.count) { %>
-                  <td class="<%= checkFailed(metric, 'count') %>"><%= metric.values.count.toFixed(2) %></td>
-                <% } else { %>
-                  <td>-</td>
-                <% } %>
-
-                <% if(metric.values.rate) { %>
-                  <td class="<%= checkFailed(metric, 'rate') %>"><%= metric.values.rate.toFixed(2) %></td>
+                  <td class="<%= checkFailed(metric, 'count') %>"><%= metric.values.count %></td>
                 <% } else { %>
                   <td>-</td>
                 <% } %>
@@ -253,6 +244,12 @@
                 <% } else { %>
                   <td>-</td> 
                 <% } %>
+
+                <% if(metric.values['p(99)']) { %>
+                  <td class="<%= checkFailed(metric, 'p(99)') %>"><%= metric.values['p(99)'].toFixed(2) %></td>
+                <% } else { %>
+                  <td>-</td> 
+                <% } %>
               </tr>
             <% } %>
           </tbody>
@@ -276,13 +273,13 @@
                 <tr>
                   <th></th>
                   <th>Count</th>
-                  <th>Rate</th>
                   <th>Average</th>
                   <th>Maximum</th>
                   <th>Median</th> 
                   <th>Minimum</th>
                   <th>90th Percentile</th>
                   <th>95th Percentile</th>
+                  <th>99th Percentile</th>
                 </tr>
               </thead>
               <% } %>
@@ -290,13 +287,7 @@
                 <td><b><%= metricName %></b></td>
 
                 <% if(metric.values.count) { %>
-                  <td class="<%= checkFailed(metric, 'count') %>"><%= metric.values.count.toFixed(2) %></td>
-                <% } else { %>
-                  <td>-</td>
-                <% } %>
-
-                <% if(metric.values.rate) { %>
-                  <td class="<%= checkFailed(metric, 'rate') %>"><%= metric.values.rate.toFixed(2) %></td>
+                  <td class="<%= checkFailed(metric, 'count') %>"><%= metric.values.count %></td>
                 <% } else { %>
                   <td>-</td>
                 <% } %>
@@ -333,6 +324,12 @@
 
                 <% if(metric.values['p(95)']) { %>
                   <td class="<%= checkFailed(metric, 'p(95)') %>"><%= metric.values['p(95)'].toFixed(2) %></td>
+                <% } else { %>
+                  <td>-</td> 
+                <% } %>
+
+                <% if(metric.values['p(99)']) { %>
+                  <td class="<%= checkFailed(metric, 'p(99)') %>"><%= metric.values['p(99)'].toFixed(2) %></td>
                 <% } else { %>
                   <td>-</td> 
                 <% } %>
