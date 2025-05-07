@@ -95,7 +95,7 @@ export function htmlReport(summaryData, opts = {}) {
 
   // Render the template
   const html = ejs.render(template, {
-    summaryData,
+    data: summaryData,
     title: opts.title,
     standardMetrics,
     otherMetrics,
