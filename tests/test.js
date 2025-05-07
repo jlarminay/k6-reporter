@@ -1,13 +1,13 @@
 import http from 'k6/http';
 import { check } from 'k6';
-import { Trend, Rate } from 'k6/metrics';
+import { Trend } from 'k6/metrics';
 
 import { htmlReport } from '../dist/bundle.cjs';
 import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.1/index.js';
 
 export let options = {
   summaryTrendStats: ['count', 'min', 'med', 'avg', 'max', 'p(90)', 'p(95)', 'p(99)'],
-  stages: [{ duration: '1s', target: 100 }],
+  stages: [{ duration: '5s', target: 10 }],
   thresholds: {
     http_req_duration: ['avg<200'],
     http_req_failed: ['rate<0.01'],
@@ -22,12 +22,12 @@ routes.forEach((route) => {
 });
 
 export default () => {
-  // Randomly select a route for the current VU
+  const now = Date.now();
   const selectedRoute = routes[Math.floor(Math.random() * routes.length)];
   const url = `http://host.docker.internal:50051${selectedRoute}`;
 
   const res = http.get(url);
-  check(res, { 'Status is ok': (r) => r.status === 200 });
+  const isStatusOK = check(res, { 'Status is ok': (r) => r.status === 200 });
   customTrends[routes.indexOf(selectedRoute)].add(res.timings.duration);
 };
 

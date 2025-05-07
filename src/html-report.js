@@ -1,5 +1,5 @@
 //
-// Generate HTML report from K6 summary data
+// Generate HTML report from K6 summary summaryData
 // Ben Coleman, March 2021
 // Josh Larminay, May 2025
 //
@@ -13,7 +13,7 @@ const version = '2.3.0';
 //
 // Main function should be imported and wrapped with the function handleSummary
 //
-export function htmlReport(data, opts = {}) {
+export function htmlReport(summaryData, opts = {}) {
   // Default options
   if (!opts.title) {
     opts.title = new Date().toISOString().slice(0, 16).replace('T', ' ');
@@ -27,17 +27,17 @@ export function htmlReport(data, opts = {}) {
   let metricListSorted = [];
 
   if (opts.debug) {
-    console.log(JSON.stringify(data, null, 2));
+    console.log(JSON.stringify(summaryData, null, 2));
   }
 
   // Count the thresholds and those that have failed
   let thresholdFailures = 0;
   let thresholdCount = 0;
-  for (let metricName in data.metrics) {
+  for (let metricName in summaryData.metrics) {
     metricListSorted.push(metricName);
-    if (data.metrics[metricName].thresholds) {
+    if (summaryData.metrics[metricName].thresholds) {
       thresholdCount++;
-      let thresholds = data.metrics[metricName].thresholds;
+      let thresholds = summaryData.metrics[metricName].thresholds;
       for (let thresName in thresholds) {
         if (!thresholds[thresName].ok) {
           thresholdFailures++;
@@ -50,13 +50,13 @@ export function htmlReport(data, opts = {}) {
   // NOTE. Nested groups are not checked!
   let checkFailures = 0;
   let checkPasses = 0;
-  if (data.root_group.checks) {
-    let { passes, fails } = countChecks(data.root_group.checks);
+  if (summaryData.root_group.checks) {
+    let { passes, fails } = countChecks(summaryData.root_group.checks);
     checkFailures += fails;
     checkPasses += passes;
   }
 
-  for (let group of data.root_group.groups) {
+  for (let group of summaryData.root_group.groups) {
     if (group.checks) {
       let { passes, fails } = countChecks(group.checks);
       checkFailures += fails;
@@ -95,7 +95,7 @@ export function htmlReport(data, opts = {}) {
 
   // Render the template
   const html = ejs.render(template, {
-    data,
+    summaryData,
     title: opts.title,
     standardMetrics,
     otherMetrics,
