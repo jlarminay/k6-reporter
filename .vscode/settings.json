@@ -1,0 +1,16 @@
+{
+  "cSpell.words": [
+  ],
+  "cSpell.ignorePaths": [
+    "node_modules/**",
+    "package.json",
+    "package-lock.json",
+    "yarn.lock",
+    "dist/**",
+    "build/**",
+    ".vscode/**"
+  ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true
+}
