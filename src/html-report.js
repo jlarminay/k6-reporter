@@ -1,6 +1,7 @@
 //
 // Generate HTML report from K6 summary data
 // Ben Coleman, March 2021
+// Josh Larminay, May 2025
 //
 
 // Have to import ejs this way, nothing else works
